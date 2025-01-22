@@ -57,6 +57,10 @@ class HardwarePWM:
         if not self.does_pwmX_exists():
             self.create_pwmX()
 
+        # explicity disable and reset duty_cycle to avoid invalid arugment errors
+        self.echo(0, os.path.join(self.pwm_dir, "enable"))
+        self.echo(0, os.path.join(self.pwm_dir, "duty_cycle"))
+
         while True:
             try:
                 self.change_frequency(hz)
